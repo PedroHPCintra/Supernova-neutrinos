@@ -1,0 +1,69 @@
+,Name,Type,Source,Mass,sigma up,sigma down,Reference
+0,B1534+12,NS-NS,Galactic,1.333,0.0002,0.0002,Fonseca et al. 2014
+1,B1534+12 comp,NS-NS,Galactic,1.3455,0.0002,0.0002,Fonseca et al. 2014
+2,B1913+16,NS-NS,Galactic,1.4398,0.0002,0.0002,Weisberg et al. 2010
+3,B1913+16 comp,NS-NS,Galactic,1.3886,0.0002,0.0002,Weisberg et al. 2010
+4,B2127+11C,NS-NS,Galactic,1.358,0.01,0.01,Jacoby et al 2006
+5,B2127+11C comp,NS-NS,Galactic,1.354,0.01,0.01,Jacoby et al 2006
+6,J0453+1559,NS-NS,Galactic,1.559,0.004,0.004,Martinez et al. 2015
+7,J0453+1559 comp,NS-NS,Galactic,1.174,0.004,0.004,Martinez et al. 2015
+8,J0509+3801,NS-NS,Galactic,1.34,0.08,0.08,Lynch et al. 2018
+9,J0509+3801 comp,NS-NS,Galactic,1.46,0.08,0.08,Lynch et al. 2018
+10,J0514-4002A,NS-NS,Galactic,1.25,0.05,0.06,Rifolfi et al. 2019
+11,J0514-4002A comp,NS-NS,Galactic,1.22,0.06,0.05,Rifolfi et al.2019
+12,J0737-3039A,NS-NS,Galactic,1.3381,0.0007,0.0007,Kramer et al 2006
+13,J0737-3039B,NS-NS,Galactic,1.2489,0.0007,0.0007,Kramer et al 2006
+14,J1756-2251,NS-NS,Galactic,1.341,0.007,0.007,Ferdman et al. 2014
+15,J1756-2251 comp,NS-NS,Galactic,1.23,0.007,0.007,Ferdman et al. 2014
+16,J1757-1854,NS-NS,Galactic,1.3384,0.0009,0.0009,Cameron et al. 2018
+17,J1757-1854 comp,NS-NS,Galactic,1.3946,0.0009,0.0009,Cameron et al. 2018
+18,J1807-2500B,NS-NS,Galactic,1.3655,0.0021,0.0021,Lynch et al. 2012
+19,J1807-2500B comp,NS-NS,Galactic,1.2064,0.002,0.002,Lynch et al. 2012
+20,J1906+0746,NS-NS,Galactic,1.291,0.011,0.011,van Leeuwen et al. 2015
+21,J1906+0746 comp,NS-NS,Galactic,1.322,0.011,0.011,van Leeuwen et al. 2015
+22,GW170817A,NS-NS,Extragalactic,1.47,0.09,0.07,Abbott et al. 2017
+23,GW170817B,NS-NS,Extragalactic,1.27,0.06,0.07,Abbott et al. 2017
+24,GW190425A,NS-NS,Extragalactic,1.56,0.06,0.08,Abbott et al. 2020
+25,GW190425B,NS-NS,Extragalactic,1.74,0.1,0.06,Abbott et al. 2020
+26,B1855+09,NS-WD,Galactic,1.37,0.13,0.13,Arzoumanian et al. 2018
+27,J0337+1715,NS-WD,Galactic,1.4359,0.0003,0.0003,Archibald et al. 2018
+28,J0348+0432,NS-WD,Galactic,2.01,0.04,0.04,Antoniadis et al. 2013
+29,J0437-4715,NS-WD,Galactic,1.44,0.07,0.07,Reardon et al. 2016
+30,J0621+1002,NS-WD,Galactic,1.53,0.1,0.2,Kasian L. E. 2012
+31,J0740+6620,NS-WD,Galactic,2.14,0.1,0.09,Cromartie et al. 2020
+32,J0751+1807,NS-WD,Galactic,1.64,0.15,0.15,Desvignes et al. 2016
+33,J1012+5307,NS-WD,Galactic,1.83,0.11,0.11,Antoniadis et al.
+34,J1141-6545,NS-WD,Galactic,1.27,0.01,0.01,Krishnan et al. 2020
+35,J1600-3053,NS-WD,Galactic,2.3,0.7,0.6,Arzoumanian et al. 2018
+36,J1614-2230,NS-WD,Galactic,1.908,0.016,0.016,Arzoumanian et al. 2018
+37,J1713+0747,NS-WD,Galactic,1.33,0.1,0.1,Zhu et al. 2019
+38,J1738+0333,NS-WD,Galactic,1.47,0.07,0.07,Antoniadis et al. 2012
+39,J1741+1351,NS-WD,Galactic,1.14,0.43,0.25,Arzoumanian et al. 2018
+40,J1748-2446am,NS-WD,Galactic,1.649,0.037,0.11,Andersen and Ransom 2018
+41,J1802-2124,NS-WD,Galactic,1.24,0.11,0.11,Ferdman et al. 2010
+42,J1811-2405,NS-WD,Galactic,2.0,0.8,0.5,Ng et al. 2020
+43,J1909-3744,NS-WD,Galactic,1.48,0.03,0.03,Arzoumanian et al. 2018
+44,J1911-5958A,NS-WD,Galactic,1.34,0.08,0.08,Bassa et al. 2006
+45,J1918-0642,NS-WD,Galactic,1.29,0.1,0.1,Arzoumanian et al. 2018
+46,J1946+3417,NS-WD,Galactic,1.828,0.022,0.022,Barr et al. 2017
+47,J1949+3106,NS-WD,Galactic,1.34,0.17,0.15,Zhu et al. 2019
+48,J1950+2414,NS-WD,Galactic,1.496,0.023,0.023,Zhu et al. 2019
+49,J1959+2048,NS-WD,Galactic,2.18,0.09,0.09,Kandel and Romani 2020
+50,J2043+1711,NS-WD,Galactic,1.38,0.13,0.13,Arzoumanian et al. 2018
+51,J2045+3633,NS-WD,Galactic,1.33,0.3,0.3,Berezina et al. 2017
+52,J2053+4650,NS-WD,Galactic,1.4,0.21,0.21,Berezina et al. 2017
+53,J2215+5135,NS-WD,Galactic,2.28,0.1,0.09,Kandel and Romani 2020
+54,J2222-0137,NS-WD,Galactic,1.76,0.06,0.06,Cognard et al. 2017
+55,J2234+0611,NS-WD,Galactic,1.353,0.014,0.017,Stovall et al. 2019
+56,4U1538-522,HMXB,Galactic,1.02,0.17,0.17,Falanga et al. 2015
+57,4U1700-377,HMXB,Galactic,1.96,0.19,0.19,Falanga et al. 2015
+58,Cen X-3,HMXB,Galactic,1.57,0.16,0.16,Falanga et al. 2015
+59,EXO 1722-363,HMXB,Galactic,1.91,0.45,0.45,Falanga et al. 2015
+60,Her X-1,HMXB,Galactic,1.07,0.36,0.36,Rawls et al. 2011
+61,J013236.7+303228,HMXB,Galactic,2.0,0.4,0.4,Bhalerao et al. 2012
+62,LMC X-4,HMXB,Galactic,1.57,0.11,0.11,Falanga et al. 2015
+63,OAO 1657-415,HMXB,Galactic,1.74,0.3,0.3,Falanga et al. 2015
+64,SAX J1802.7-2017,HMXB,Galactic,1.57,0.25,0.25,Falanga et al. 2015
+65,SMC X-1,HMXB,Galactic,1.21,0.12,0.12,Falanga et al. 2015
+66,Vela X-1,HMXB,Galactic,2.12,0.16,0.16,Falanga et al. 2015
+67,XTE J1855-026,HMXB,Galactic,1.41,0.24,0.24,Falanga et al. 2015
