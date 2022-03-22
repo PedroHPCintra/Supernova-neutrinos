@@ -3,13 +3,13 @@ import pandas as pd
 from scipy.interpolate import interp1d
 
 # Importing csv files from cross section simulations
-marley = pd.read_csv('MARLEY_neutrino_argon_CC_cross_section.csv') #MARLEY neutrino-argon
-marley_anti = pd.read_csv('MARLEY_anti_neutrino_argon_CC_cross_section.csv') #MARLEY antineutrino-argon
+marley = pd.read_csv('https://raw.githubusercontent.com/PedroHPCintra/Supernova-neutrinos/main/Data/MARLEY_neutrino_argon_CC_cross_section.csv') #MARLEY neutrino-argon
+marley_anti = pd.read_csv('https://raw.githubusercontent.com/PedroHPCintra/Supernova-neutrinos/main/Data/MARLEY_anti_neutrino_argon_CC_cross_section.csv') #MARLEY antineutrino-argon
 """
 MARLEY: Gardiner, S. (2021). Simulating low-energy neutrino interactions with MARLEY.
 Computer Physics Communications, 269, 108123.
 """
-oxygen = pd.read_csv('Neutrino_oxigen_cross_section.csv') #neutrino oxygen
+oxygen = pd.read_csv('https://raw.githubusercontent.com/PedroHPCintra/Supernova-neutrinos/main/Data/Neutrino_oxigen_cross_section.csv') #neutrino oxygen
 """
 Kolbe, E., Langanke, K., & Vogel, P. (2002). Estimates of weak and electromagnetic nuclear
 decay signatures for neutrino reactions in Super-Kamiokande. Physical Review D, 66(1), 013007
