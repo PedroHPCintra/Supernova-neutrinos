@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
+from scipy.integrate import simps
 
 # Importing csv files from cross section simulations
 marley = pd.read_csv('https://raw.githubusercontent.com/PedroHPCintra/Supernova-neutrinos/main/Data/MARLEY_neutrino_argon_CC_cross_section.csv') #MARLEY neutrino-argon
@@ -87,9 +88,75 @@ def cross_section_CC_nu_proton(x, Δ = 1.293):
     """
     Aproximation of IBD cross section valid until 300 MeV.
     Δ is the mass difference between the neutron and the proton Δ = m_n - m_p = 1.293 MeV
+
+    Ref:
+        Strumia, A., & Vissani, F. (2003). Precise quasielastic neutrino/nucleon
+        cross-section. Physics Letters B, 564(1-2), 42-54.
     """
     sig_0 = 1e-43 #cm^2
     E_e = x - Δ
     m_e = 0.511
     p_e = np.sqrt(E_e - m_e)
     return sig_0*p_e*E_e*x**(-0.07056 + 0.02018*np.log(x) - 0.001953*(np.log(x)**3))
+
+def F2helm(q2, A):
+   """
+   returns helm form factor.
+   input:
+      q2 - squared momentum transfer in keV^2
+      A - atomic mass number
+   """
+   hbarc=1.97e5 # keV fm
+   s=0.9/hbarc
+   a=0.52/hbarc
+   c=(1.23*A**(1./3.)-0.6)/hbarc
+   rn=np.sqrt(c**2+7./3.*np.pi**2*a**2-5*s**2)
+   q=np.sqrt(q2)
+   F2 = (3*(np.sin(q*rn)-q*rn*np.cos(q*rn))/(q*rn)**3*np.exp(-q2*s**2/2))**2
+   F2 = np.clip(F2, 0, 1e30)
+   return F2
+
+def diff_cross_section_CEnuNS(ER, Enu, mN, AN, ZN):
+    """
+    returns the differential scattering cross section
+    per nuclear recoil energy ER for a neutrino with
+    energy Enu scattering elastically (CEvNS) off a
+    nucleus with N
+    input:
+       ER - nuclear recoil energy in [keV]
+       Enu - neutrino energy in [MeV]
+       mN - mass of N in [GeV]
+       AN - atomic number of N
+       ZN - number of protons in N
+    output:
+       differential cross section in [cm^2/keV]
+    """
+    # constants
+    GF = 1.1663787e-5  # Fermi constant in [1/GeV^2]
+    sin2W = 0.23121  # weak mixing angle
+    hbarc_GeVcm = 1.97e-14  # in [GeV cm]
+    # unit conversion
+    GeVPERkeV = 1e-6
+    #
+    unitconv = hbarc_GeVcm ** 2 * GeVPERkeV
+    prefac = GF ** 2 / (4.0 * np.pi)
+    QN2 = (AN - ZN - (1.0 - 4.0 * sin2W) * ZN) ** 2
+    xsec = (
+        QN2 * mN * (1.0 - mN * ER / (2.0 * Enu ** 2)) * F2helm(2.0 * 1e6 * mN * ER, AN)
+    )
+    xsec = np.clip(xsec, 0, 1e30)
+    return unitconv * prefac * xsec
+
+def cross_section_CEnuNS(Enu, mN, AN, ZN):
+    cs = []
+    for i in range(len(Enu)):
+        ER = np.linspace(0, 2*Enu[i]/(mN*1e3), len(Enu))
+        piece = simps(diff_cross_section_CEnuNS(ER, Enu[i], mN, AN, ZN), ER)
+        print(piece)
+        cs.append(piece)
+    cs = np.array(cs)
+    return cs
+
+# E = np.linspace(0, 100, 10)
+# c = cross_section_CEnuNS(E, 25, 10, 10)
+# print(c)

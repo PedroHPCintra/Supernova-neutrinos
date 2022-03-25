@@ -28,8 +28,17 @@ cross_scatter_anti_x = cs.cross_section_NC_nu_e(x, 5, g1_barnu_x, g2_barnu_x)
 cross_ivb = cs.cross_section_CC_nu_proton(x)
 cross_argon = cs.cross_section_nu_e_argon(x)
 cross_argon_anti = cs.cross_section_nubar_e_argon(x)
+cross_coherent_Ge = cs.diff_cross_section_CEnuNS(x, 9.314e8*76/1e9, 32, 32)
+cross_coherent_Xe = cs.diff_cross_section_CEnuNS(x, 9.314e8*132/1e9, 54, 54)
+cross_coherent_Si = cs.diff_cross_section_CEnuNS(x, 9.314e8*28/1e9, 14, 14)
 
 fig = plt.figure(figsize=(10,8))
+plt.plot(x, cross_coherent_Ge, color = 'orange', lw = 2,
+        label = r'CE$\nu$NS $^{76}$Ge')
+plt.plot(x, cross_coherent_Xe, color = 'orange', lw = 2, ls = '--',
+        label = r'CE$\nu$NS $^{132}$Xe')
+plt.plot(x, cross_coherent_Si, color = 'orange', lw = 2, ls = '-.',
+        label = r'CE$\nu$NS $^{28}$Si')
 plt.plot(x, cross_oxygen, color = 'crimson', lw = 2,
         label = r'$\nu_e + ^{16}\mathrm{O} \rightarrow \mathrm{X} + e^-$')
 plt.plot(x, cross_oxygen_anti, color = 'crimson', lw = 2, ls = '--',
@@ -49,17 +58,17 @@ plt.plot(x, cross_argon, color = 'forestgreen', lw = 2,
 plt.plot(x, cross_argon_anti, color = 'forestgreen', lw = 2, ls = '--',
         label = r'$\overline{\nu}_e + ^{40}\mathrm{Ar} \rightarrow ^{40}\mathrm{K}^* + e^+$')
 plt.yscale('log')
-lgd = plt.legend(title = 'Interactions', loc='lower right', ncol = 3, bbox_to_anchor = (1,1),
+lgd = plt.legend(title = 'Interactions', loc='lower right', ncol = 4, bbox_to_anchor = (1,1),
         fontsize = 12)
 title = lgd.get_title()
 title.set_fontsize(14)
 plt.xlabel('Neutrino energy [MeV]', fontsize = 14)
 plt.ylabel(r'Cross section [cm$^{2}$]', fontsize = 14)
 plt.xlim(10, 100)
-plt.ylim(1e-46, 1e-38)
+plt.ylim(1e-46, 1e-34)
 plt.tight_layout()
 fig.patch.set_alpha(1)
 for ax in fig.axes:
         ax.patch.set_alpha(1)
-plt.savefig('cross_sections_neutrinos.png', bbox_inches = 'tight', dpi = 300)
+# plt.savefig('cross_sections_neutrinos.png', bbox_inches = 'tight', dpi = 300)
 plt.show()
