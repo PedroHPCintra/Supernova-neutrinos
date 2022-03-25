@@ -53,5 +53,6 @@ def plot_spectrum(E, L = 2e53, stage = 'emission', hierarchy = 'normal',
     plt.tight_layout()
     plt.show()
 
-# Calling the function to plot spectra using normal mass hierarchy and 2e53 ergs of total luminosity
+# Calling the function to plot spectra using normal mass hierarchy
+# and 2e53 ergs of total luminosity
 plot_spectrum(E, 2e53, 'both', 'normal', yscale='linear')
