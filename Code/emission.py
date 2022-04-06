@@ -71,7 +71,7 @@ def emitted_spectrum(x, flavor, E_tot, hierarchy = 'normal', adiabatic = True):
     elif flavor == 'nubar_e':
         return a_ebar*F_e + b_ebar*F_ebar + c_ebar*F_x
     elif flavor == 'nu_x':
-        return F_x
+        return ((1-a_e)*F_e + (1+a_e)*F_x)/2
     else:
         raise ValueError('Invalid entry for neutrino species. Please use "nu_e" for \
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
