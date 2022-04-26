@@ -21,7 +21,7 @@ def produced_spectrum(x, specie, E_tot):
         raise ValueError('Invalid entry for neutrino species. Please use "nu_e" for \
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
                 tau (anti)neutrinos')
-    A = E_tot*((1+alpha)**(1+alpha))/((gamma(1+alpha))*E_mean**(2+alpha))
+    A = (E_tot/3)*((1+alpha)**(1+alpha))/((gamma(1+alpha))*E_mean**(2+alpha))
     f_nu = A*(x**alpha)*np.exp(-(alpha + 1)*x/E_mean)
     return f_nu
 

@@ -45,7 +45,7 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'super-k', hierarchy
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
                 tau (anti)neutrinos')
         # Detector efficiency
-        eff = efficiency_sigmoid(x, 100, 7, 3.5)
+        eff = efficiency_sigmoid(x, 1, 7, 3.5)
     elif detector == 'DUNE':
         # Number of target particles
         n_target = 6.03e32
@@ -61,9 +61,10 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'super-k', hierarchy
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
                 tau (anti)neutrinos')
         # Detector efficiency
-        eff = efficiency_sigmoid(x, 98, 1.2127, 8.0591)
+        eff = efficiency_sigmoid(x, 0.98, 1.2127, 8.0591)
     else:
-        raise ValueError("Ops, we don't have this detector in our simulations. Try 'super-k'.")
+        raise ValueError("Ops, we don't have this detector in our simulations. Try 'super-k' \
+            or 'DUNE'.")
     # Normalization
     distance_cm = distance*3.09e16
     A = n_target/(4 * np.pi * distance_cm**2)
@@ -73,7 +74,8 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'super-k', hierarchy
 
 # Sampling from the expected detection spectra
 def energy_sampler(E, E_tot, resolution, resolution_function = 'constant',
-                    detector = 'super-k', hierarchy = 'normal', distance = 10000):
+                    detector = 'super-k', hierarchy = 'normal', distance = 10000,
+                    print_expected = True, only_total_events = False):
     """"
     This function samples individual detected energies for the events based on the
     total number of expected events and the energy spectrum. It applies a random fluctuation
@@ -101,14 +103,16 @@ def energy_sampler(E, E_tot, resolution, resolution_function = 'constant',
     N_expected_ebar = np.round(simps(detection_spectra(E, E_tot, 'nubar_e', detector, hierarchy, distance), E), 0)
     N_expected_x = np.round(simps(detection_spectra(E, E_tot, 'nu_x', detector, hierarchy, distance), E), 0)
 
-    print(f'Number of expected neutrinos by flavor at {distance} parsecs'
-    '\n'
-    '\n'
-    f'electron neutrinos: {int(N_expected_e)}'
-    '\n'
-    f'electron antineutrinos: {int(N_expected_ebar)}'
-    '\n'
-    f'mu/tau (anti)neutrinos: {int(N_expected_x)}')
+    if print_expected:
+        print('\n'
+        f'Number of expected neutrinos by flavor at {distance} parsecs'
+        '\n'
+        '\n'
+        f'electron neutrinos: {int(N_expected_e)}'
+        '\n'
+        f'electron antineutrinos: {int(N_expected_ebar)}'
+        '\n'
+        f'mu/tau (anti)neutrinos: {int(N_expected_x)}')
     
     # Sampling
     possible_energies = E
@@ -117,45 +121,58 @@ def energy_sampler(E, E_tot, resolution, resolution_function = 'constant',
     weights_x = detection_spectra(E, E_tot, 'nu_x')/N_expected_x
 
     # Sampling process uses poisson distribution to resample the number of detected neutrinos in each flavor
-    samples_e = choices(possible_energies, weights_e, k = np.random.poisson(int(N_expected_e)))
-    samples_ebar = choices(possible_energies, weights_ebar, k = np.random.poisson(int(N_expected_ebar)))
-    samples_x = choices(possible_energies, weights_x, k = np.random.poisson(int(N_expected_x)))
-    
-    ##### Noise in detection energy #####
-    final_samples_e = []
-    final_samples_ebar = []
-    final_samples_x = []
-    # Electron neutrinos
-    for i in range(len(samples_e)):
-        if resolution_function == 'constant':
-            new_sample_e = np.random.normal(samples_e[i], resolution)
-        elif resolution_function == 'proportional':
-            new_sample_e = np.random.normal(samples_e[i], samples_e[i]*resolution)
-        final_samples_e.append(new_sample_e)
-    # Electron antineutrinos
-    for i in range(len(samples_ebar)):
-        if resolution_function == 'constant':
-            new_sample_ebar = np.random.normal(samples_ebar[i], resolution)
-        elif resolution_function == 'proportional':
-            new_sample_ebar = np.random.normal(samples_ebar[i], samples_ebar[i]*resolution)
-        final_samples_ebar.append(new_sample_ebar)
-    # Mu/Tau (anti)neutrinos
-    for i in range(len(samples_x)):
-        if resolution_function == 'constant':
-            new_sample_x = np.random.normal(samples_x[i], resolution)
-        elif resolution_function == 'proportional':
-            new_sample_x = np.random.normal(samples_x[i], samples_x[i]*resolution)
-        final_samples_x.append(new_sample_x)
-    
-    final_samples_e = np.array(final_samples_e)
-    final_samples_ebar = np.array(final_samples_ebar)
-    final_samples_x = np.array(final_samples_x)
+    N_new_e = np.random.poisson(int(N_expected_e))
+    N_new_ebar = np.random.poisson(int(N_expected_ebar))
+    N_new_x = np.random.poisson(int(N_expected_x))
+    # If only_total_events = True, the function will only return the total sampled values, not individual energies
+    if only_total_events:
+        final_samples = {}
+        final_samples['nu_e'] = N_new_e
+        final_samples['nubar_e'] = N_new_ebar
+        final_samples['nu_x'] = N_new_x
+        total_sample = N_new_x + N_new_e + N_new_ebar
+        final_samples['Total'] = total_sample
+        return final_samples
+    else:
+        samples_e = choices(possible_energies, weights_e, k = N_new_e)
+        samples_ebar = choices(possible_energies, weights_ebar, k = N_new_ebar)
+        samples_x = choices(possible_energies, weights_x, k = N_new_x)
+        
+        ##### Noise in detection energy #####
+        final_samples_e = []
+        final_samples_ebar = []
+        final_samples_x = []
+        # Electron neutrinos
+        for i in range(len(samples_e)):
+            if resolution_function == 'constant':
+                new_sample_e = np.random.normal(samples_e[i], resolution)
+            elif resolution_function == 'proportional':
+                new_sample_e = np.random.normal(samples_e[i], samples_e[i]*resolution)
+            final_samples_e.append(new_sample_e)
+        # Electron antineutrinos
+        for i in range(len(samples_ebar)):
+            if resolution_function == 'constant':
+                new_sample_ebar = np.random.normal(samples_ebar[i], resolution)
+            elif resolution_function == 'proportional':
+                new_sample_ebar = np.random.normal(samples_ebar[i], samples_ebar[i]*resolution)
+            final_samples_ebar.append(new_sample_ebar)
+        # Mu/Tau (anti)neutrinos
+        for i in range(len(samples_x)):
+            if resolution_function == 'constant':
+                new_sample_x = np.random.normal(samples_x[i], resolution)
+            elif resolution_function == 'proportional':
+                new_sample_x = np.random.normal(samples_x[i], samples_x[i]*resolution)
+            final_samples_x.append(new_sample_x)
+        
+        final_samples_e = np.array(final_samples_e)
+        final_samples_ebar = np.array(final_samples_ebar)
+        final_samples_x = np.array(final_samples_x)
 
-    # Organizing outputs
-    final_samples = {}
-    final_samples['nu_e'] = final_samples_e
-    final_samples['nubar_e'] = final_samples_ebar
-    final_samples['nu_x'] = final_samples_x
-    total_sample = np.concatenate((final_samples_e,final_samples_ebar,final_samples_x))
-    final_samples['Total'] = total_sample
-    return final_samples
+        # Organizing outputs
+        final_samples = {}
+        final_samples['nu_e'] = final_samples_e
+        final_samples['nubar_e'] = final_samples_ebar
+        final_samples['nu_x'] = final_samples_x
+        total_sample = np.concatenate((final_samples_e,final_samples_ebar,final_samples_x))
+        final_samples['Total'] = total_sample
+        return final_samples
