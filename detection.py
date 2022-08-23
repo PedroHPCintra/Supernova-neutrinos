@@ -19,25 +19,23 @@ def efficiency_sigmoid(x, a, b, c):
     eff = a/(1+np.exp(-b*(x-c)))
     return eff
 
-E = np.linspace(1.804, 100, 1000000) # Neutrino detection energy
-
-def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'Super-k',
+def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'super-k',
                     hierarchy = 'normal', distance = 10, phi = 0):
-    if detector == 'Super-k':
+    if detector == 'super-k':
         channels = ['ibd','nue_e','nuebar_e','nue_O16','nuebar_O16','numu_e',
                     'numubar_e','nc_nue_O16','nc_nuebar_O16']
         xs_data = cs.snowglobes(channels)
         
         # All these cross sections are in units of 10⁻³⁸ cm²/MeV
-        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3)
-        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3)
-        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3)
-        cs_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3)
-        cs_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3)
-        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3)
-        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3)
-        cs_nc_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3)
-        cs_nc_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[8][4]/1e3)
+        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3, fill_value='extrapolate')
+        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3, fill_value='extrapolate')
+        cs_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3, fill_value='extrapolate')
+        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3, fill_value='extrapolate')
+        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3, fill_value='extrapolate')
+        cs_nc_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3, fill_value='extrapolate')
+        cs_nc_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[8][4]/1e3, fill_value='extrapolate')
         # Number of target particles
         n_target = (32e9/18.01528)*6.022e23*2 # number of protons
         # Total cross section
@@ -60,17 +58,17 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'Super-k',
         xs_data = cs.snowglobes(channels)
 
         # All these cross sections are in units of 10⁻³⁸ cm²/MeV
-        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3)
-        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3)
-        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3)
-        cs_nue_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3)
-        cs_nuebar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3)
-        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3)
-        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3)
-        cs_nc_nue_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3)
-        cs_nc_nuebar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[8][4]/1e3)
-        cs_nc_nux_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[9][2]/1e3)
-        cs_nc_nuxbar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[10][5]/1e3)
+        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3, fill_value='extrapolate')
+        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3, fill_value='extrapolate')
+        cs_nue_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3, fill_value='extrapolate')
+        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3, fill_value='extrapolate')
+        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3, fill_value='extrapolate')
+        cs_nc_nue_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3, fill_value='extrapolate')
+        cs_nc_nuebar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[8][4]/1e3, fill_value='extrapolate')
+        cs_nc_nux_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[9][2]/1e3, fill_value='extrapolate')
+        cs_nc_nuxbar_Ar40 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[10][5]/1e3, fill_value='extrapolate')
         # Number of target particles
         n_target = 6.03e32
         # Total cross section
@@ -122,21 +120,21 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'Super-k',
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
                 tau (anti)neutrinos')
         # Detector efficiency
-        eff = 0.918 #efficiency_sigmoid(x, 0.918, 1.2127, 3)
+        eff = np.where(x<1,0,1) #efficiency_sigmoid(x, 0.918, 1.2127, 3)
     elif detector == 'Hyper-k':
         channels = ['ibd','nue_e','nuebar_e','nue_O16','nuebar_O16','numu_e',
                     'numubar_e','nc_nue_O16']
         xs_data = cs.snowglobes(channels)
 
         # All these cross sections are in units of 10⁻³⁸ cm²/MeV
-        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3)
-        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3)
-        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3)
-        cs_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3)
-        cs_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3)
-        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3)
-        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3)
-        cs_nc_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3)
+        cs_ibd = interp1d(1e3*(10**(xs_data[0][0])), xs_data[0][4]/1e3, fill_value='extrapolate')
+        cs_nue_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[1][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[2][4]/1e3, fill_value='extrapolate')
+        cs_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[3][1]/1e3, fill_value='extrapolate')
+        cs_nuebar_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[4][1]/1e3, fill_value='extrapolate')
+        cs_nux_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[5][2]/1e3, fill_value='extrapolate')
+        cs_nuxbar_e = interp1d(1e3*(10**(xs_data[0][0])), xs_data[6][5]/1e3, fill_value='extrapolate')
+        cs_nc_nue_O16 = interp1d(1e3*(10**(xs_data[0][0])), xs_data[7][1]/1e3, fill_value='extrapolate')
         # Number of target particles
         n_target = (216e9/18.01528)*6.022e23*2 # number of protons
         # Total cross section
@@ -151,9 +149,9 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'Super-k',
                 electron neutrinos, "nubar_e" for electron antineutrinos or "nu_x" for mu or \
                 tau (anti)neutrinos')
         # Detector efficiency
-        eff = 0.99 #efficiency_sigmoid(x, 0.918, 1.2127, 3)
+        eff = np.where(x<3,0,0.9) #efficiency_sigmoid(x, 0.918, 1.2127, 3)
     else:
-        raise ValueError("Ops, we don't have this detector in our simulations. Try 'Super-k', \
+        raise ValueError("Ops, we don't have this detector in our simulations. Try 'super-k', \
             'Hyper-k', 'DUNE' or 'JUNO'.")
     # Normalization
     distance_cm = distance*3.086e21 #conversion from kiloparsec to centimeter
@@ -164,7 +162,7 @@ def detection_spectra(x, E_tot, flavor = 'nu_e', detector = 'Super-k',
 
 # Sampling from the expected detection spectra
 def energy_sampler(E, E_tot, resolution, resolution_function = 'constant',
-                    detector = 'Super-k', hierarchy = 'normal', distance = 10,
+                    detector = 'super-k', hierarchy = 'normal', distance = 10,
                     print_expected = True, only_total_events = False, phi = 0):
     """"
     This function samples individual detected energies for the events based on the
@@ -228,12 +226,34 @@ def energy_sampler(E, E_tot, resolution, resolution_function = 'constant',
         samples_ebar = choices(possible_energies, weights_ebar, k = N_new_ebar)
         samples_x = choices(possible_energies, weights_x, k = N_new_x)
         
-        ##### Noise in detection energy #####
+        ##### Noise in detection energy and neutrino direction #####
         final_samples_e = []
         final_samples_ebar = []
         final_samples_x = []
+
+        # angles = np.linspace(0, np.pi/2, 10000)
+        # N = simps(cs.dsigma_dtheta(angles, 1, sigma_0), angles)
+
+        final_thetas_e = []
+        final_phis_e = []
+        final_thetas_ebar = []
+        final_phis_ebar = []
+        final_thetas_x = []
+        final_phis_x = []
+
         # Electron neutrinos
         for i in range(len(samples_e)):
+            #if elastic_scattering
+            #weights = cs.dsigma_dtheta(angles, samples_e[i], sigma_0)/N
+            #theta = choices(angles, weights, k = 1)
+            #phi = choices(angles, weights, k = 1)
+            #new_theta = np.random.normal(theta[0], np.pi/9)
+            #new_phi = np.random.normal(phi[0], np.pi/9)
+            #final_thetas_e.append(new_theta)
+            #final_phis_e.append(new_phi)
+            #else
+            #theta_2 = np.random.uniform(-np.pi, np.pi)
+            #phi_2 = np.random.uniform(-np.pi/2, np.pi/2)
             if resolution_function == 'constant':
                 new_sample_e = np.random.normal(samples_e[i], resolution)
             elif resolution_function == 'proportional':

@@ -48,6 +48,7 @@ delta_m = {'m_10': 7.53e-5, 'm_20': 2.44e-3, 'm_21': 2.44e-3,
 R_earth = 6371 # Earth radius in km
 R_core = 3468 # Earth core radius in km
 G_F = 1.16e-5 # Fermi constant
+Grav_const = 6.674e-11 # Universal gravitational constant
 """"
 Bernabeu, J., Palomares-Ruiz, S., Perez, A., & Petcov, S. T. (2002). The earth
 Mantle-Core effect in charge-asymmetries for atmospheric neutrino oscillations.
